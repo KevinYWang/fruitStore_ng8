@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Fruit } from '../model/fruit.model';
 import { FruitRepository } from '../model/fruit.repository';
+import { Cart } from '../model/car.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store',
@@ -12,7 +14,11 @@ export class StoreComponent implements OnInit {
   public pageSize = 4;
   public selectedPage = 1;
 
-  constructor(private fruitRepository: FruitRepository) { }
+  constructor(
+    private fruitRepository: FruitRepository,
+    private cart: Cart,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -52,5 +58,10 @@ export class StoreComponent implements OnInit {
   changePageSize(newPageSize: string) {
     this.pageSize = Number(newPageSize);
     this.selectedPage = 1;
+  }
+
+  addFruitToCart(fruit: Fruit) {
+    this.cart.addLine(fruit);
+    //this.router.navigateByUrl("/cart")/
   }
 }
